@@ -110,9 +110,9 @@
 
 .pl-g8-physics-electromagnetic-flux-flip-button {
   padding: 0.5rem 1rem;
-  border: 1px solid #334155;
-  background: #ffffff;
-  color: #0f172a;
+  border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  background: transparent;
+  color: inherit;
   border-radius: calc(var(--radius, 0.75rem) * 0.8);
   font: inherit;
   font-weight: 600;
@@ -120,11 +120,11 @@
 }
 
 .pl-g8-physics-electromagnetic-flux-flip-button:hover {
-  background: #f1f5f9;
+  border-color: var(--color-primary, #f7ac4d);
 }
 
 .pl-g8-physics-electromagnetic-flux-flip-button:focus-visible {
-  outline: 2px solid #2563eb;
+  outline: 2px solid var(--color-ring, #cfa46b);
   outline-offset: 2px;
 }
 
@@ -139,7 +139,7 @@
 .pl-g8-physics-electromagnetic-flux-flux-title {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #334155;
+  color: var(--color-muted-foreground, #6b5a4d);
 }
 
 .pl-g8-physics-electromagnetic-flux-flux-bar {
@@ -226,9 +226,9 @@
   padding: 0.5rem 0.75rem;
   border: 1px solid color-mix(in srgb, currentColor 12%, transparent);
   border-radius: calc(var(--radius, 0.75rem) * 0.8);
-  background: #ffffff;
+  background: var(--color-card, #ffffff);
   font-size: 0.9375rem;
-  color: #334155;
+  color: var(--color-foreground, #221812);
 }
 
 .pl-g8-physics-electromagnetic-flux-check-done {
@@ -241,7 +241,7 @@
   font-weight: 700;
   font-size: 1.1rem;
   line-height: 1.2;
-  color: #94a3b8;
+  color: var(--color-muted-foreground, #6b5a4d);
   min-width: 1.25rem;
 }
 
