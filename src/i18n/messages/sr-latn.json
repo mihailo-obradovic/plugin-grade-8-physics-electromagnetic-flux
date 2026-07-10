@@ -1,0 +1,11 @@
+{
+  "sceneAria": "Šipkasti magnet pored zavojnice, sa galvanometrom iznad. Prevucite magnet da indukujete struju.",
+  "galvanometer": "Galvanometar",
+  "flipMagnet": "Okreni magnet",
+  "fluxAria": "Magnetni fluks kroz zavojnicu: {value}",
+  "fluxLabel": "Fluks Φ",
+  "chartAria": "Grafikon fluksa i indukovane struje tokom posljednjih nekoliko sekundi",
+  "fluxLegend": "Fluks Φ",
+  "currentLegend": "Struja I",
+  "completion": "Odlično — upravo ste pokazali Faradejev zakon: indukovana struja zavisi od promjene fluksa, a ne od samog fluksa."
+}

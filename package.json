@@ -1,10 +1,11 @@
 {
   "name": "plugin-grade-8-physics-electromagnetic-flux",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": true,
   "packageManager": "pnpm@11.9.0",
   "type": "module",
   "scripts": {
+    "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "build": "tsup",
     "build:github": "tsup && node scripts/package-github.mjs"
@@ -17,6 +18,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "tsup": "^8.5.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.9"
   }
 }

@@ -1,5 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 
+import { exerciseContent } from './content';
+import {
+  usePluginLocale,
+  usePluginTranslations
+} from './i18n/usePluginTranslations';
+
 import type { PointerEvent as ReactPointerEvent } from 'react';
 import type { PluginContext } from './types';
 
@@ -33,12 +39,6 @@ type Polarity = 1 | -1;
 type Checkpoints = [boolean, boolean, boolean];
 type Sample = { t: number; flux: number; current: number };
 
-const CHECKPOINT_LABELS: [string, string, string] = [
-  'Induce a current by pushing the magnet into the coil.',
-  'Induce the opposite current by pulling the magnet out.',
-  'Hold the magnet still inside the coil — current returns to zero.'
-];
-
 function fluxAt(magnetCenter: number, polarity: Polarity): number {
   const dx = magnetCenter - COIL_CX;
   return polarity * Math.exp(-(dx * dx) / (FLUX_SIGMA * FLUX_SIGMA));
@@ -54,6 +54,9 @@ type Props = {
 
 export default function Exercise({ context }: Props) {
   const svgRef = useRef<SVGSVGElement | null>(null);
+  const locale = usePluginLocale(context.i18n);
+  const t = usePluginTranslations(context.i18n);
+  const content = exerciseContent[locale];
 
   const [magnetX, setMagnetX] = useState(120);
   const [polarity, setPolarity] = useState<Polarity>(1);
@@ -252,7 +255,7 @@ export default function Exercise({ context }: Props) {
           viewBox={`0 0 ${SCENE_W} ${SCENE_H}`}
           className={c('scene')}
           role="img"
-          aria-label="Bar magnet next to a wire coil with a galvanometer above it. Drag the magnet to induce a current."
+          aria-label={t('sceneAria')}
         >
           <g transform={`translate(${COIL_CX}, 60)`}>
             <rect
@@ -264,7 +267,7 @@ export default function Exercise({ context }: Props) {
               className={c('gv-body')}
             />
             <text x={0} y={-22} textAnchor="middle" className={c('gv-title')}>
-              Galvanometer
+              {t('galvanometer')}
             </text>
             <line x1={-30} y1={22} x2={30} y2={22} className={c('gv-scale')} />
             <text x={-30} y={38} textAnchor="middle" className={c('gv-tick')}>−</text>
@@ -370,14 +373,14 @@ export default function Exercise({ context }: Props) {
 
       <div className={c('controls')}>
         <button type="button" className={c('flip-button')} onClick={handleFlip}>
-          Flip magnet
+          {t('flipMagnet')}
         </button>
 
         <div
           className={c('flux-gauge')}
-          aria-label={`Magnetic flux through the coil: ${flux.toFixed(2)}`}
+          aria-label={t('fluxAria', { value: flux.toFixed(2) })}
         >
-          <div className={c('flux-title')}>Flux Φ</div>
+          <div className={c('flux-title')}>{t('fluxLabel')}</div>
           <div className={c('flux-bar')}>
             <div className={c('flux-zero')} />
             <div
@@ -396,7 +399,7 @@ export default function Exercise({ context }: Props) {
         viewBox={`0 0 ${SCENE_W} ${CHART_H}`}
         className={c('chart')}
         role="img"
-        aria-label="Chart of flux and induced current over the last few seconds"
+        aria-label={t('chartAria')}
       >
         <line
           x1={0}
@@ -410,14 +413,18 @@ export default function Exercise({ context }: Props) {
 
         <g>
           <rect x={12} y={10} width={20} height={4} className={c('chart-flux-swatch')} />
-          <text x={38} y={19} className={c('chart-legend-text')}>Flux Φ</text>
+          <text x={38} y={19} className={c('chart-legend-text')}>
+            {t('fluxLegend')}
+          </text>
           <rect x={110} y={10} width={20} height={4} className={c('chart-current-swatch')} />
-          <text x={136} y={19} className={c('chart-legend-text')}>Current I</text>
+          <text x={136} y={19} className={c('chart-legend-text')}>
+            {t('currentLegend')}
+          </text>
         </g>
       </svg>
 
       <ul className={c('checklist')}>
-        {CHECKPOINT_LABELS.map((label, i) => (
+        {content.checkpoints.map((label, i) => (
           <li
             key={label}
             className={
@@ -434,7 +441,7 @@ export default function Exercise({ context }: Props) {
 
       {allDone && (
         <div className={c('banner')} role="status">
-          {'Nice — you just demonstrated Faraday’s law: the induced current follows the change in flux, not the flux itself.'}
+          {t('completion')}
         </div>
       )}
     </div>
