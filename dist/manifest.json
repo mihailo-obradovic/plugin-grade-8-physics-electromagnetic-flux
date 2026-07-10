@@ -1,0 +1,12 @@
+{
+  "id": "grade-8.physics.electromagnetic-flux",
+  "version": "1.0.3",
+  "capabilities": [
+    "quiz",
+    "progress"
+  ],
+  "reactRuntime": "shared",
+  "entry": "./index.js",
+  "styles": "./styles.css",
+  "minPlatformVersion": "0.2.0"
+}
