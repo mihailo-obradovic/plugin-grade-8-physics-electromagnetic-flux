@@ -1,6 +1,6 @@
 {
   "id": "grade-8.physics.electromagnetic-flux",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "capabilities": [
     "quiz",
     "progress"
