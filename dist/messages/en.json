@@ -1,0 +1,11 @@
+{
+  "sceneAria": "Bar magnet next to a wire coil with a galvanometer above it. Drag the magnet to induce a current.",
+  "galvanometer": "Galvanometer",
+  "flipMagnet": "Flip magnet",
+  "fluxAria": "Magnetic flux through the coil: {value}",
+  "fluxLabel": "Flux Φ",
+  "chartAria": "Chart of flux and induced current over the last few seconds",
+  "fluxLegend": "Flux Φ",
+  "currentLegend": "Current I",
+  "completion": "Nice — you just demonstrated Faraday’s law: the induced current follows the change in flux, not the flux itself."
+}
