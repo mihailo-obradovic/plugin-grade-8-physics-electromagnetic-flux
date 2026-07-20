@@ -233,8 +233,8 @@ export default function Exercise({ context }: Props) {
   const needleAngle = current * 55;
   const allDone = checkpoints[0] && checkpoints[1] && checkpoints[2];
 
-  const leftFill = polarity === 1 ? '#dc2626' : '#2563eb';
-  const rightFill = polarity === 1 ? '#2563eb' : '#dc2626';
+  const leftPole = polarity === 1 ? 'magnet-north' : 'magnet-south';
+  const rightPole = polarity === 1 ? 'magnet-south' : 'magnet-north';
   const leftLabel = polarity === 1 ? 'N' : 'S';
   const rightLabel = polarity === 1 ? 'S' : 'N';
 
@@ -245,7 +245,8 @@ export default function Exercise({ context }: Props) {
   );
 
   const coilActive = Math.abs(current) > 0.05;
-  const coilStroke = current > 0 ? '#dc2626' : '#2563eb';
+  // Same series colours as the chart, so they lift together in dark mode.
+  const coilStroke = current > 0 ? 'var(--pl-current)' : 'var(--pl-flux)';
 
   return (
     <div className={c('root')}>
@@ -327,8 +328,7 @@ export default function Exercise({ context }: Props) {
               width={MAGNET_W / 2}
               height={MAGNET_H}
               rx={4}
-              className={c('magnet-half')}
-              style={{ fill: leftFill }}
+              className={`${c('magnet-half')} ${c(leftPole)}`}
             />
             <rect
               x={MAGNET_W / 2}
@@ -336,8 +336,7 @@ export default function Exercise({ context }: Props) {
               width={MAGNET_W / 2}
               height={MAGNET_H}
               rx={4}
-              className={c('magnet-half')}
-              style={{ fill: rightFill }}
+              className={`${c('magnet-half')} ${c(rightPole)}`}
             />
             <text
               x={MAGNET_W / 4}
@@ -388,7 +387,7 @@ export default function Exercise({ context }: Props) {
               style={{
                 width: `${Math.abs(flux) * 50}%`,
                 left: flux >= 0 ? '50%' : `${50 - Math.abs(flux) * 50}%`,
-                background: flux >= 0 ? '#dc2626' : '#2563eb'
+                background: flux >= 0 ? 'var(--pl-current)' : 'var(--pl-flux)'
               }}
             />
           </div>

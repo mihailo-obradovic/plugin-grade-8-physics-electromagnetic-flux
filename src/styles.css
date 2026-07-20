@@ -7,8 +7,32 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  color: var(--color-foreground, #221812);
+  color: var(--color-foreground, #24356b);
   font-family: var(--font-sans, system-ui, sans-serif);
+
+  /*
+   * Data-series and state colours the platform palette has no token for (no
+   * success/info series tokens — see design-system.md §7). Flux and current must
+   * stay distinguishable from each other and from the brand, so they stay
+   * plugin-local rather than being forced onto --color-primary/--color-destructive.
+   * The .dark block lifts them off the navy paper.
+   */
+  --pl-field: #6366f1;
+  --pl-flux: #2563eb;
+  --pl-current: #dc2626;
+  --pl-correct: #10b981;
+  --pl-correct-surface: #ecfdf5;
+  --pl-correct-ink: #065f46;
+}
+
+/* Host toggles dark via a .dark ancestor (main.css @custom-variant). */
+.dark .pl-g8-physics-electromagnetic-flux-root {
+  --pl-field: #a5b4fc;
+  --pl-flux: #60a5fa;
+  --pl-current: #f87171;
+  --pl-correct: #34d399;
+  --pl-correct-surface: color-mix(in srgb, #34d399 14%, transparent);
+  --pl-correct-ink: #a7f3d0;
 }
 
 .pl-g8-physics-electromagnetic-flux-scene-wrap {
@@ -27,40 +51,40 @@
 }
 
 .pl-g8-physics-electromagnetic-flux-gv-body {
-  fill: #f8fafc;
-  stroke: #334155;
+  fill: var(--color-card, #fefcf8);
+  stroke: var(--color-foreground, #24356b);
   stroke-width: 1.5;
 }
 
 .pl-g8-physics-electromagnetic-flux-gv-title {
   font-size: 12px;
-  fill: #334155;
+  fill: var(--color-foreground, #24356b);
   font-weight: 600;
 }
 
 .pl-g8-physics-electromagnetic-flux-gv-scale {
-  stroke: #94a3b8;
+  stroke: var(--color-muted-foreground, #576283);
   stroke-width: 1;
 }
 
 .pl-g8-physics-electromagnetic-flux-gv-tick {
   font-size: 12px;
-  fill: #64748b;
+  fill: var(--color-muted-foreground, #576283);
 }
 
 .pl-g8-physics-electromagnetic-flux-gv-needle {
-  stroke: #0f172a;
+  stroke: var(--color-foreground, #24356b);
   stroke-width: 2.5;
   stroke-linecap: round;
   transition: none;
 }
 
 .pl-g8-physics-electromagnetic-flux-gv-pivot {
-  fill: #0f172a;
+  fill: var(--color-foreground, #24356b);
 }
 
 .pl-g8-physics-electromagnetic-flux-coil-wire {
-  stroke: #475569;
+  stroke: var(--color-muted-foreground, #576283);
   stroke-width: 2.5;
   fill: none;
   stroke-linecap: round;
@@ -68,27 +92,41 @@
 
 .pl-g8-physics-electromagnetic-flux-coil-turn {
   fill: none;
-  stroke: #475569;
+  stroke: var(--color-muted-foreground, #576283);
   stroke-width: 2.5;
   opacity: 0.75;
 }
 
 .pl-g8-physics-electromagnetic-flux-field-line {
   fill: none;
-  stroke: color-mix(in srgb, #6366f1 55%, transparent);
+  stroke: color-mix(in srgb, var(--pl-field) 55%, transparent);
   stroke-width: 1.2;
   stroke-dasharray: 4 4;
 }
 
 .pl-g8-physics-electromagnetic-flux-magnet-half {
-  stroke: #1f2937;
+  stroke: var(--color-foreground, #24356b);
   stroke-width: 1;
+}
+
+/*
+ * Pole colours are the N=red / S=blue physics convention, not theming: the
+ * magnet is an object in the scene, so it stays saturated in both themes the
+ * way the brand star does. Deliberately NOT lifted in .dark — that is what
+ * keeps the white pole label legible (design-system.md §6 contrast floor).
+ */
+.pl-g8-physics-electromagnetic-flux-magnet-north {
+  fill: #dc2626;
+}
+
+.pl-g8-physics-electromagnetic-flux-magnet-south {
+  fill: #2563eb;
 }
 
 .pl-g8-physics-electromagnetic-flux-magnet-label {
   font-size: 20px;
   font-weight: 700;
-  fill: #ffffff;
+  fill: #ffffff; /* on a saturated pole in both themes — see above */
   pointer-events: none;
 }
 
@@ -120,11 +158,11 @@
 }
 
 .pl-g8-physics-electromagnetic-flux-flip-button:hover {
-  border-color: var(--color-primary, #f7ac4d);
+  border-color: var(--color-primary, #ffc93f);
 }
 
 .pl-g8-physics-electromagnetic-flux-flip-button:focus-visible {
-  outline: 2px solid var(--color-ring, #cfa46b);
+  outline: 2px solid var(--color-ring, #101d53);
   outline-offset: 2px;
 }
 
@@ -139,13 +177,13 @@
 .pl-g8-physics-electromagnetic-flux-flux-title {
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--color-muted-foreground, #6b5a4d);
+  color: var(--color-muted-foreground, #576283);
 }
 
 .pl-g8-physics-electromagnetic-flux-flux-bar {
   position: relative;
   height: 14px;
-  background: #e2e8f0;
+  background: var(--color-muted, #e8edf7);
   border-radius: 7px;
   overflow: hidden;
 }
@@ -156,7 +194,7 @@
   bottom: 0;
   left: 50%;
   width: 1px;
-  background: #94a3b8;
+  background: var(--color-muted-foreground, #576283);
 }
 
 .pl-g8-physics-electromagnetic-flux-flux-fill {
@@ -172,19 +210,19 @@
   height: auto;
   border: 1px solid color-mix(in srgb, currentColor 12%, transparent);
   border-radius: calc(var(--radius, 0.75rem) * 0.8);
-  background: #ffffff;
+  background: var(--color-card, #fefcf8);
 }
 
 .pl-g8-physics-electromagnetic-flux-chart-axis {
-  stroke: #cbd5e1;
+  stroke: var(--color-border, #d0d8e9);
   stroke-width: 1;
   stroke-dasharray: 4 4;
 }
 
 .pl-g8-physics-electromagnetic-flux-chart-flux,
 .pl-g8-physics-electromagnetic-flux-chart-flux-swatch {
-  stroke: #2563eb;
-  fill: #2563eb;
+  stroke: var(--pl-flux);
+  fill: var(--pl-flux);
 }
 
 .pl-g8-physics-electromagnetic-flux-chart-flux {
@@ -195,8 +233,8 @@
 
 .pl-g8-physics-electromagnetic-flux-chart-current,
 .pl-g8-physics-electromagnetic-flux-chart-current-swatch {
-  stroke: #dc2626;
-  fill: #dc2626;
+  stroke: var(--pl-current);
+  fill: var(--pl-current);
 }
 
 .pl-g8-physics-electromagnetic-flux-chart-current {
@@ -207,7 +245,7 @@
 
 .pl-g8-physics-electromagnetic-flux-chart-legend-text {
   font-size: 12px;
-  fill: #334155;
+  fill: var(--color-foreground, #24356b);
 }
 
 .pl-g8-physics-electromagnetic-flux-checklist {
@@ -226,34 +264,34 @@
   padding: 0.5rem 0.75rem;
   border: 1px solid color-mix(in srgb, currentColor 12%, transparent);
   border-radius: calc(var(--radius, 0.75rem) * 0.8);
-  background: var(--color-card, #ffffff);
+  background: var(--color-card, #fefcf8);
   font-size: 0.9375rem;
-  color: var(--color-foreground, #221812);
+  color: var(--color-foreground, #24356b);
 }
 
 .pl-g8-physics-electromagnetic-flux-check-done {
-  background: #ecfdf5;
-  border-color: #10b981;
-  color: #065f46;
+  background: var(--pl-correct-surface);
+  border-color: var(--pl-correct);
+  color: var(--pl-correct-ink);
 }
 
 .pl-g8-physics-electromagnetic-flux-check-mark {
   font-weight: 700;
   font-size: 1.1rem;
   line-height: 1.2;
-  color: var(--color-muted-foreground, #6b5a4d);
+  color: var(--color-muted-foreground, #576283);
   min-width: 1.25rem;
 }
 
 .pl-g8-physics-electromagnetic-flux-check-done .pl-g8-physics-electromagnetic-flux-check-mark {
-  color: #10b981;
+  color: var(--pl-correct);
 }
 
 .pl-g8-physics-electromagnetic-flux-banner {
   padding: 0.75rem 1rem;
-  background: #ecfdf5;
-  border: 1px solid #10b981;
-  color: #065f46;
+  background: var(--pl-correct-surface);
+  border: 1px solid var(--pl-correct);
+  color: var(--pl-correct-ink);
   border-radius: calc(var(--radius, 0.75rem) * 0.8);
   font-weight: 500;
 }
